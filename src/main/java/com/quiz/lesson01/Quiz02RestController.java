@@ -64,6 +64,18 @@ public class Quiz02RestController {
 		board.setContent("안녕하세요. 가입했어요. 앞으로 잘 부탁드립니다. 활동 열심히 하겠습니다.");
 		resultList.add(board);
 		
+		board = new Board();
+		board.setTitle("헐 대박");
+		board.setUser("bada");
+		board.setContent("오늘 목요일이었어...금요일인줄");
+		resultList.add(board);
+		
+		board = new Board();
+		board.setTitle("오늘 데이트 한 이야기 해드릴께요.");
+		board.setUser("dulumary");
+		board.setContent("........");
+		resultList.add(board);
+		
 		return resultList;
 	}
 	
