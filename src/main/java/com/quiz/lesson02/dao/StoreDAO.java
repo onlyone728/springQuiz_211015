@@ -7,7 +7,7 @@ import org.springframework.stereotype.Repository;
 import com.quiz.lesson02.model.Store;
 
 @Repository
-public class StoreDAO {
+public interface StoreDAO {
 	
 	public List<Store> selectStoreList();
 
