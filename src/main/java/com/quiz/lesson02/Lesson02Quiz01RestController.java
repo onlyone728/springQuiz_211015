@@ -10,13 +10,13 @@ import com.quiz.lesson02.bo.StoreBO;
 import com.quiz.lesson02.model.Store;
 
 @RestController
-public class StoreRestController {
+public class Lesson02Quiz01RestController {
 
 	@Autowired
-	private StoreBO storeBO;
+	private StoreBO storeBO;	// DI : dependency Injection
 	
 	@RequestMapping("/lesson02/quiz01")
 	public List<Store> quiz01() {
-		return storeBO.getStore();
+		return storeBO.getStoreList();	// json(@ResponseBody가 있어서 jackson 라이브러리 작동)
 	}
 }
