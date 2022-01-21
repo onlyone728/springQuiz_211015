@@ -14,15 +14,21 @@ public class RealEstateBO {
 	@Autowired
 	private RealEstateDAO realEstateDAO;
 	
-	public RealEstate getRealEstate(int id) {
-		return realEstateDAO.selectRealEstate(id);
+	public RealEstate getRealEstateById(int id) {
+		return realEstateDAO.selectRealEstateById(id);
 	}
 	
-	public List<RealEstate> getRealEstate2(Integer rent_price) {
-		return realEstateDAO.selectRealEstate2(rent_price);
+	
+	public List<RealEstate> getRealEstateListByRentPrice(int rentPrice) {
+		return realEstateDAO.selectRealEstateListByRentPrice(rentPrice);
 	}
 	
-	public List<RealEstate> getRealEstate3(int area, int price) {
-		return realEstateDAO.selectRealEstate3(area, price);
+	
+	public List<RealEstate> getRealEstateListByAreaAndPrice(int area, int price) {
+		return realEstateDAO.selectRealEstateListByAreaAndPrice(area, price);
+	}
+	
+	public int addRealEstate(RealEstate realEstate) {
+		return realEstateDAO.insertRealEstate(realEstate);
 	}
 }
