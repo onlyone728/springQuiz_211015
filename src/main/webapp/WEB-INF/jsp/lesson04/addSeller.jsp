@@ -16,7 +16,7 @@
 	<div class="container">
 		<h1>판매자 추가</h1>
 		
-		<form method="post" action="/lesson04/add_seller">
+		<form method="post" action="/lesson04/quiz01/add_seller">
 			<div class="form-group">
 				<label for="nickname"><b>닉네임</b></label>
 				<input type="text" class="form-control col-3" id="nickname" name="nickname" placeholder="닉네임을 입력하세요.">
