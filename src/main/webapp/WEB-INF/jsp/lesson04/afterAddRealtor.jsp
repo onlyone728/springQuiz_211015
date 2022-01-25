@@ -4,7 +4,7 @@
 <html>
 <head>
 <meta charset="UTF-8">
-<title>판매자 정보</title>
+<title>${subject}</title>
 <!-- bootstrap CDN link -->
   <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css" integrity="sha384-Gn5384xqQ1aoWXA+058RXPxPg6fy4IWvTNh0E263XmFcJlSAwiGgFAW/dAiS6JXm" crossorigin="anonymous">
 
@@ -14,12 +14,38 @@
 </head>
 <body>
 	<div class="container">
-		<h1>판매자 정보</h1>
-		<div>
-			<img src="${seller.profileImageUrl}" alt="사진" width="500">
-		</div>
-		<h2 class="display-3">${seller.nickname}</h2>
-		<h4 class="display-4 text-warning">${seller.temperature}</h4>
+		<div class="display-3">${subject}</div>
+		
+		<table class="table">
+			<tr>
+				<th>번호</th>
+				<td>${result.id}</td>
+			</tr>
+			<tr>
+				<th>상호명</th>
+				<td>${result.office}</td>
+			</tr>
+			<tr>
+				<th>전화번호</th>
+				<td>${result.phoneNumber}</td>
+			</tr>
+			<tr>
+				<th>주소</th>
+				<td>${result.address}</td>
+			</tr>
+			<tr>
+				<th>등급</th>
+				<td>${result.grade}</td>
+			</tr>
+			<tr>
+				<th>생성일</th>
+				<td>${result.createdAt}</td>
+			</tr>
+			<tr>
+				<th>수정일</th>
+				<td>${result.updatedAt}</td>
+			</tr>
+		</table>
 	</div>
 </body>
 </html>

@@ -4,7 +4,7 @@
 <html>
 <head>
 <meta charset="UTF-8">
-<title>판매자 정보</title>
+<title>공인중개사 추가</title>
 <!-- bootstrap CDN link -->
   <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css" integrity="sha384-Gn5384xqQ1aoWXA+058RXPxPg6fy4IWvTNh0E263XmFcJlSAwiGgFAW/dAiS6JXm" crossorigin="anonymous">
 
@@ -14,12 +14,27 @@
 </head>
 <body>
 	<div class="container">
-		<h1>판매자 정보</h1>
-		<div>
-			<img src="${seller.profileImageUrl}" alt="사진" width="500">
-		</div>
-		<h2 class="display-3">${seller.nickname}</h2>
-		<h4 class="display-4 text-warning">${seller.temperature}</h4>
+		<h1>공인중개사 추가</h1>
+		
+		<form method="post" action="/lesson04/quiz02/add_realtor">
+			<div class="form-group">
+				<label for="office">상호명</label>
+				<input type="text" id="office" name="office" class="form-control col-5">
+			</div>
+			<div class="form-group">
+				<label for="phoneNumber">전화번호</label>
+				<input type="text" id="phoneNumber" name="phoneNumber" class="form-control col-5">
+			</div>
+			<div class="form-group">
+				<label for="address">주소</label>
+				<input type="text" id="address" name="address" class="form-control col-5">
+			</div>
+			<div class="form-group">
+				<label for="grade">등급</label>
+				<input type="text" id="grade" name="grade" class="form-control col-5">
+			</div>
+			<input type="submit" class="btn btn-primary" value="추가">
+		</form>
 	</div>
 </body>
 </html>

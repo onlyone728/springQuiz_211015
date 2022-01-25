@@ -12,11 +12,15 @@ public class SellerBO {
 	@Autowired
 	private SellerDAO sellerDAO;
 	
-	public void addSeller(String nickname, String profileImageUrl, Double temperature) {
+	public void addSeller(String nickname, String profileImageUrl, double temperature) {
 		sellerDAO.insertSeller(nickname, profileImageUrl, temperature);
 	}
 	
-	public Seller getSeller() {
-		return sellerDAO.selectSeller();
+	public Seller getLastSeller() {
+		return sellerDAO.selectLastSeller();
+	}
+	
+	public Seller getSellerById(int id) {	// controller에서 id 값을 받았을 경우에만 수행되므로 int
+		return sellerDAO.selectSellerById(id);
 	}
 }
