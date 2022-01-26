@@ -29,12 +29,14 @@ public class Lesson04Quiz02Controller {
 			@ModelAttribute Realtor realtor,
 			Model model) {
 		
-		// insert
+		// insert => id 반환을 받고
 		realtorBO.addRealtor(realtor);
 		
-		// select
-		Realtor result = realtorBO.getRealtorById(realtor.getId());
-		model.addAttribute("result", result);
+		// select => 반환받은 id로
+		realtor = realtorBO.getRealtorById(realtor.getId());
+		
+		// jsp에서 사용할 객체를 model에 담는다.
+		model.addAttribute("realtor", realtor);
 		model.addAttribute("subject", "공인중개사 정보");
 		
 		// view return
