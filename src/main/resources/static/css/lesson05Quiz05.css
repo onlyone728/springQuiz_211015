@@ -1,0 +1,6 @@
+@charset "UTF-8";
+
+.menu {background-color:#6495EC; }
+.menu ul li a {color: #fff; font-weight: bold; font-size: 20px;}
+footer{height: 100px; background-color: #e7e7e7;}
+footer small {margin: auto;}
