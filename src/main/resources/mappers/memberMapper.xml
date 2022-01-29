@@ -1,0 +1,28 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+ "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+ 
+ <mapper namespace="com.quiz.lesson05.dao.MemberDAO">
+ 	<insert id="insertMember" parameterType="com.quiz.lesson05.model.Member">
+ 		INSERT INTO `member`
+ 		(
+ 			`name`
+			, `phoneNumber`
+			, `nationality`
+			, `email`
+			, `introduce`
+			, `createdAt`
+			, `updatedAt`
+ 		)
+ 		VALUES
+ 		(
+ 			#{name}
+ 			, #{phoneNumber}
+ 			, #{nationality}
+ 			, #{email}
+ 			, #{introduce}
+ 			, NOW()
+ 			, NOW()
+ 		)
+ 	</insert>
+ </mapper>

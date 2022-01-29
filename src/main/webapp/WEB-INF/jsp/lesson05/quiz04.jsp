@@ -1,12 +1,12 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
-<%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt"%>
+<%@ taglib prefix="fn" uri="http://java.sun.com/jsp/jstl/functions"%>
 <!DOCTYPE html>
 <html>
 <head>
 <meta charset="UTF-8">
-<title>JSTL fmt 라이브러리</title>
+<title>Quiz04 회원 정보 리스트</title>
 <!-- bootstrap CDN link -->
   <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css" integrity="sha384-Gn5384xqQ1aoWXA+058RXPxPg6fy4IWvTNh0E263XmFcJlSAwiGgFAW/dAiS6JXm" crossorigin="anonymous">
 
@@ -15,49 +15,49 @@
   <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/js/bootstrap.min.js" integrity="sha384-JZR6Spejh4U02d8jOt6vLEHfe/JQGiRRSQQxSfFWpi1MquVdAyjUar5+76PVCmYl" crossorigin="anonymous"></script>
 </head>
 <body>
+<%-- <img src="/images/sunny.jpeg"> --%>
 	<div class="container">
-		<h1>1. 후보자 득표율</h1>
+	<h1>회원 정보 리스트</h1>
 		<table class="table text-center">
 			<thead>
 				<tr>
-					<th>기호</th>
-					<th>득표 수</th>
-					<th>득표 율</th>
+					<th>No</th>
+					<th>이름</th>
+					<th>전화번호</th>
+					<th>국적</th>
+					<th>이메일</th>
+					<th>자기소개</th>
 				</tr>
 			</thead>
 			<tbody>
-				<c:forEach var="candidate" items="${candidates}" varStatus="status">
+				<c:forEach var="member" items="${members}" varStatus="status">
 				<tr>
 					<td>${status.count}</td>
-					<td><fmt:formatNumber value="${candidate}" /></td>
+					<td>${member.name}</td>
 					<td>
-						<fmt:formatNumber value="${candidate / totalCount}" type="percent" />
+						<c:choose>
+							<c:when test="${fn:startsWith(member.phoneNumber, '010')}">
+								${member.phoneNumber}
+							</c:when>
+							<c:otherwise>
+								유효하지 않은 번호
+							</c:otherwise>
+						</c:choose>
 					</td>
-				</tr>
-				</c:forEach>
-			</tbody>
-		</table>
-		
-		<h1>2. 카드 명세서</h1>
-		<table class="table text-center">
-			<thead>
-				<tr>
-					<th>사용처</th>
-					<th>가격</th>
-					<th>사용 날짜</th>
-					<th>할부</th>
-				</tr>
-			</thead>
-			<tbody>
-				<c:forEach var="cardBill" items="${cardBills}">
-				<tr>
-					<td>${cardBill.store}</td>
-					<td><fmt:formatNumber value="${cardBill.pay}" type="currency" /></td>
 					<td>
-						<fmt:parseDate value="${cardBill.date}" pattern="yyyy-MM-dd" var="date" />
-						<fmt:formatDate value="${date}" pattern="yyyy년 M월 d일" />
+						${fn:replace(member.nationality, '삼국시대', '삼국 -')}
 					</td>
-					<td>${cardBill.installment}</td>
+					<td>
+						<b>${fn:split(member.email, '@')[0]}</b>@${fn:split(member.email, '@')[1]}
+					</td>
+					<td class="text-left">
+						<c:if test="${fn:length(member.introduce) <= 15}">
+							${member.introduce}
+						</c:if>
+						<c:if test="${fn:length(member.introduce) > 15}">
+							${fn:substring(member.introduce, 0, 16)}...
+						</c:if>
+					</td>
 				</tr>
 				</c:forEach>
 			</tbody>
