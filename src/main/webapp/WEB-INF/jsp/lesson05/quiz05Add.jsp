@@ -11,7 +11,6 @@
 				<div class="form-group col-4 d-flex">
 					<label for="date" class="mt-2 col-4 d-flex justify-content-end">날짜</label>
 					<input type="date" id="date" name="date" class="form-control col-8">
-					<fmt:parseDate value="${param.date}" pattern="yyyy-MM-dd" />
 				</div>
 				<div class="form-group col-4 d-flex">
 					<label for="weather" class="mt-2 col-4 d-flex justify-content-end">날씨</label>
