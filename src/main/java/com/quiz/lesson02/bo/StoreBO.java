@@ -17,4 +17,5 @@ public class StoreBO {
 	public List<Store> getStoreList() {
 		return storeDAO.selectStoreList();
 	}
+	
 }
