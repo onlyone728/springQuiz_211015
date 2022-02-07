@@ -1,6 +1,5 @@
 package com.quiz.lesson05.bo;
 
-import java.util.Date;
 import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -15,12 +14,12 @@ public class WeatherBO {
 	@Autowired
 	private WeatherDAO weatherDAO;
 
-	public List<Weather> selectWeather() {
-		return weatherDAO.selectWeather();
+	public List<Weather> getWeatherList() {
+		return weatherDAO.selectWeatherList();
 	}
 	
 	public void addWeather(
-			Date date,
+			String date,
 			String weather,
 			double temperatures,
 			double precipitation,

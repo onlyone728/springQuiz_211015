@@ -10,7 +10,7 @@
 			<div class="form-row w-100">
 				<div class="form-group col-4 d-flex">
 					<label for="date" class="mt-2 col-4 d-flex justify-content-end">날짜</label>
-					<input type="date" id="date" name="date" class="form-control col-8">
+					<input type="text" id="date" name="date" class="form-control col-8">
 				</div>
 				<div class="form-group col-4 d-flex">
 					<label for="weather" class="mt-2 col-4 d-flex justify-content-end">날씨</label>
@@ -78,20 +78,8 @@
 
 <script>
 	$(document).ready(function() {
-		// 모든 데이터피커에 적용
-		$.datepicker.setDefaults({
-			dayNamesMin : [ '일', '월', '화', '수', '목', '금', '토' ] // 요일을 한글로 변경
-			,
-			dateFormat : 'yy-mm-dd'
-		});
-
-		// 오늘 날짜로 이동하는 함수
-		$.datepicker._gotoToday = function(id) {
-			$(id).datepicker('setDate', new Date()).datepicker('hide').blur();
-		};
-
 		$('#date').datepicker({
-			showButtonPanel : true // 오늘 버튼 노출
+			dateFormat: 'yy-mm-dd'	// 2022-02-07
 		});
 	});
 </script>

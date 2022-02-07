@@ -1,12 +1,13 @@
 package com.quiz.lesson05;
 
-import java.util.Date;
 import java.util.List;
 
+import javax.servlet.http.HttpServletResponse;
+
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.format.annotation.DateTimeFormat;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
+import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 
@@ -19,44 +20,44 @@ public class Lesson05Quiz05Controller {
 	@Autowired
 	private WeatherBO weatherBO;
 
+	// request -> server -> response
 	// http://localhost/lesson05/quiz05
 	@RequestMapping("/lesson05/quiz05")
 	public String quiz05(Model model) {
 		// DB select
-		List<Weather> weatherHistory = weatherBO.selectWeather();
+		List<Weather> weatherHistory = weatherBO.getWeatherList();
 
 		model.addAttribute("weatherHistory", weatherHistory);
 
-		return "lesson05/quiz05Template";
+		return "weather_history/quiz05Template";
 	}
 
+	// 날씨 정보 입력 화면
 	// http://localhost/lesson05/quiz05Add
 	@RequestMapping("/lesson05/quiz05Add")
 	public String addtWeather() {
 
-		return "lesson05/quiz05AddTemplate";
+		return "weather_history/quiz05AddTemplate";
 	}
 
-	//
-	@RequestMapping("/lesson05/quiz05AfterAddWeather")
+	// 날씨 입력 => 결과 : 날씨 정보 목록 화면으로 리다이렉트
+	@PostMapping("/lesson05/quiz05AfterAddWeather")
 	public String afterAddWeather(
-			@RequestParam("date") 
-			@DateTimeFormat(iso = DateTimeFormat.ISO.DATE) Date date,
+			@RequestParam("date") String date,
 			@RequestParam("weather") String weather, 
 			@RequestParam("temperatures") double temperatures,
 			@RequestParam("precipitation") double precipitation,
 			@RequestParam("microDust") String microDust,
 			@RequestParam("windSpeed") double windSpeed,
-			Model model) {
+			HttpServletResponse response) {
 
+		// DB insert
 		weatherBO.addWeather(date, weather, temperatures, precipitation, microDust, windSpeed);
 
-		// DB select
-		List<Weather> weatherHistory = weatherBO.selectWeather();
-
-		model.addAttribute("weatherHistory", weatherHistory);
-
-		return "lesson05/quiz05Template";
+		// 날씨 정보 목록 화면으로 리다이렉트
+		// return response.sendRedirect("/lesson05/quiz05");
+		return "redirect:/lesson05/quiz05";
+		
 
 	}
 }
