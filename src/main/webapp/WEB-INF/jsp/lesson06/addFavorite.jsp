@@ -55,6 +55,9 @@
 					// alert(data);
 					location.href = "/lesson06/after_add_favorite";
 				}
+				, complete: function(data) {
+					alert(data);
+				}
 				, error: function(e) {
 					alert('error : ' + e);
 				}

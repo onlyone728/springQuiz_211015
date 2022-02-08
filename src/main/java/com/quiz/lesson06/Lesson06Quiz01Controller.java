@@ -8,6 +8,7 @@ import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.bind.annotation.ResponseBody;
 
 import com.quiz.lesson06.bo.FavoriteBO;
 import com.quiz.lesson06.model.Favorite;
@@ -25,12 +26,15 @@ public class Lesson06Quiz01Controller {
 	
 	// 즐겨찾기 추가 기능
 	@PostMapping("/lesson06/add_favorite")
-	public void addFavorite(
+	@ResponseBody
+	public String addFavorite(
 			@RequestParam("name") String name,
 			@RequestParam("url") String url) {
 		
 		// insert DB
 		favoriteBO.addFavorite(name, url);
+		
+		return "성공";
 	}
 	
 	// 즐겨찾기 리스트 화면
