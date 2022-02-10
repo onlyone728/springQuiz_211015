@@ -32,7 +32,7 @@
 					<td>${favorite.id}</td>
 					<td>${favorite.name}</td>
 					<td><a href="${favorite.url}" target="_blank">${favorite.url}</a></td>
-					<td><button type="button" id="deleteBtn" class="btn btn-danger">삭제</button></td>
+					<td><button type="button" class="btn btn-danger deleteBtn">삭제</button></td>
 				</tr>
 				</c:forEach>
 			</tbody>
@@ -41,9 +41,31 @@
 	
 	<script>
 	$(document).ready(function() {
-		$('#deleteBtn').on('click', function() {
-			alert("삭제 버튼 클릭");
-		});
+		$('.deleteBtn').on('click', function() {
+			// alert("삭제 버튼 클릭");
+			let str = ""
+			let tdArr = new Array();	// 배열 선언
+			let deleteBtn = $(this);
+			var tr = deleteBtn.parent().parent();
+			var td = tr.children();
+			
+			let id = td.eq(0).text();
+			console.log(id);
+			
+			$.ajax({
+				type: "GET"
+				, url: "/lesson06/delete_favorite"
+				, data: {"id": id}
+				, success: function(data){
+					location.reload();
+				}
+				, error: function(e) {
+					alert("errer");
+				}
+			})
+		})
+		
+		
 	});
 	</script>
 </body>
