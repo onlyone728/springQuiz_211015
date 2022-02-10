@@ -17,24 +17,34 @@
 	<div class="container">
 		<h1>즐겨찾기 목록</h1>
 		
-		<table class="table text-center mt-3">
+		<table class="table mt-3">
 			<thead>
 				<tr>
 					<th>No.</th>
 					<th>이름</th>
 					<th>주소</th>
+					<th></th>
 				</tr>
 			</thead>
 			<tbody>
 				<c:forEach var="favorite" items="${favoriteList}" varStatus="status">
 				<tr>
-					<td>${status.count}</td>
+					<td>${favorite.id}</td>
 					<td>${favorite.name}</td>
-					<td>${favorite.url}</td>
+					<td><a href="${favorite.url}" target="_blank">${favorite.url}</a></td>
+					<td><button type="button" id="deleteBtn" class="btn btn-danger">삭제</button></td>
 				</tr>
 				</c:forEach>
 			</tbody>
 		</table>
 	</div>
+	
+	<script>
+	$(document).ready(function() {
+		$('#deleteBtn').on('click', function() {
+			alert("삭제 버튼 클릭");
+		});
+	});
+	</script>
 </body>
 </html>
