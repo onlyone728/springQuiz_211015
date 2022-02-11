@@ -1,0 +1,43 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+ "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+ 
+ <mapper namespace="com.quiz.hongdangmu.dao.UsedGoodsDAO">
+	<select id="selectUsedGoodsList"  resultType="com.quiz.hongdangmu.model.UsedGoods">
+		SELECT
+			`id`
+			, `sellerId`
+			, `title`
+			, `description`
+			, `price`
+			, `picture`
+			, `createdAt`
+			, `updatedAt`
+		FROM
+			`used_goods`
+		ORDER BY `id` DESC
+	</select>
+	
+	<insert id="insertUsedGoods" parameterType="com.quiz.hongdangmu.model.UsedGoods">
+		INSERT INTO `used_goods`
+		(
+			`sellerId`
+			, `title`
+			, `description`
+			, `price`
+			, `picture`
+			, `createdAt`
+			, `updatedAt`
+		)
+		VALUES
+		(
+			#{sellerId}
+			, #{title}
+			, #{description}
+			, #{price}
+			, #{picture}
+			, NOW()
+			, NOW()
+		)
+	</insert>
+ </mapper>

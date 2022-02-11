@@ -22,6 +22,18 @@
  		)
  	</insert>
  	
+ 	<select id="selectSeller" resultType="com.quiz.lesson04.model.Seller">
+ 		SELECT
+ 			`id`
+ 			, `nickname`
+ 			, `profileImageUrl`
+ 			, `temperature`
+ 			, `createdAt`
+ 			, `updatedAt`
+ 		FROM
+ 			`seller`
+ 	</select>
+ 	
  	<select id="selectLastSeller" resultType="com.quiz.lesson04.model.Seller">
  		SELECT
  			`id`
@@ -49,4 +61,40 @@
  		WHERE
  			`id` = #{id}
  	</select>
+
+ 	<resultMap type="com.quiz.hongdangmu.model.UsedGoods" id="usedGoodsMap">
+ 		<id property="id" column="usdGoodsId" />
+		<result property="title" column="title"/>
+		<result property="description" column="description"/>
+		<result property="price" column="price"/>
+		<result property="picture" column="picture"/>
+	</resultMap>
+ 	
+ 	<resultMap type="com.quiz.lesson04.model.Seller" id="sellerMap">
+ 		<id property="id" column="id"/>
+ 		<result property="sellerId" column="sellerId" />
+ 		<result property="nickname" column="nickname" />
+ 		<result property="profileImageUrl" column="profileImageUrl" />
+ 		<result property="temperature" column="temperature" />
+ 		<collection property="usedGoods" resultMap="usedGoodsMap" />
+  	</resultMap>
+ 	
+	<select id="selectSellerWithGoods" resultMap="sellerMap">
+		SELECT 
+			A.id
+			, A.nickname
+			, A.profileImageUrl
+			, A.temperature
+			, B.sellerId
+			, B.title
+			, B.description
+			, B.price
+			, B.picture
+		FROM
+			`seller` AS A
+		INNER JOIN
+			`used_goods` AS B
+		ON 
+			A.id = B.sellerId
+	</select>
  </mapper>

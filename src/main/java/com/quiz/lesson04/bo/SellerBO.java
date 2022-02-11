@@ -1,5 +1,7 @@
 package com.quiz.lesson04.bo;
 
+import java.util.List;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -20,7 +22,15 @@ public class SellerBO {
 		return sellerDAO.selectLastSeller();
 	}
 	
+	public List<Seller> getSeller() {
+		return sellerDAO.selectSeller();
+	}
+	
 	public Seller getSellerById(int id) {	// controller에서 id 값을 받았을 경우에만 수행되므로 int
 		return sellerDAO.selectSellerById(id);
+	}
+	
+	public List<Seller> getSellerWithGoods() {
+		return sellerDAO.selectSellerWithGoods();
 	}
 }

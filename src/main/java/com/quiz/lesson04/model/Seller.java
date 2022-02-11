@@ -2,6 +2,8 @@ package com.quiz.lesson04.model;
 
 import java.util.Date;
 
+import com.quiz.hongdangmu.model.UsedGoods;
+
 public class Seller {
 
 	private int id;
@@ -11,6 +13,14 @@ public class Seller {
 	private Date createdAt;
 	private Date updatedAt;
 	
+	private UsedGoods usedGoods;	// join할 model
+	
+	public UsedGoods getUsedGoods() {
+		return usedGoods;
+	}
+	public void setUsedGoods(UsedGoods usedGoods) {
+		this.usedGoods = usedGoods;
+	}
 	public int getId() {
 		return id;
 	}
