@@ -18,5 +18,5 @@ public interface FavoriteDAO {
 	
 	public Favorite selectFavoriteByUrl(String url);
 	
-	public boolean deleteFavorite(int id);
+	public int deleteFavoriteById(int id);
 }

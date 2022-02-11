@@ -81,16 +81,20 @@ public class Lesson06Quiz01Controller {
 	
 	// 즐겨찾기 삭제 기능 -> AJAX 통신 호출
 	@ResponseBody
-	@RequestMapping("/lesson06/delete_favorite")
-	public Map<String, Boolean> deleteFavorite(
+	@PostMapping("/lesson06/delete_favorite")
+	public Map<String, String> deleteFavorite(
 			@RequestParam("id") int id) {
 		
 		// delete DB
-		boolean isDelete = favoriteBO.deleteFavorite(id);
+		int deleteRowCount = favoriteBO.deleteFavoriteById(id);
 		
 		// return map
-		Map<String, Boolean> result = new HashMap<>();
-		result.put("isDelete", isDelete);
+		Map<String, String> result = new HashMap<>();
+		result.put("result", "success");
+		
+		if (deleteRowCount < 1) {
+			result.put("result", "fail");
+		}
 		
 		return result;
 	}
