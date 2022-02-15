@@ -17,12 +17,12 @@
 		
 		<div class="form-group">
 			<label for="day">숙박일수</label>
-			<input type="number" id="day" class="form-control">
+			<input type="text" id="day" class="form-control">
 		</div>
 		
 		<div class="form-group">
 			<label for="headcount">숙박인원</label>
-			<input type="number" id="headcount" class="form-control">
+			<input type="text" id="headcount" class="form-control">
 		</div>
 		
 		<div class="form-group">
@@ -44,7 +44,6 @@ $(document).ready(function() {
         , minDate:0 // 오늘과 그 이후만 선택 가능
 	});
 	
-	// validation check
 	$('#reservation-btn').on('click', function() {
 		let name = $('#name').val().trim();
 		let date = $('#date').val().trim();
@@ -52,6 +51,7 @@ $(document).ready(function() {
 		let headcount = $('#headcount').val().trim();
 		let phoneNumber = $('#phoneNumber').val().trim();
 		
+		// validation check
 		if (name == '') {
 			alert("이름을 입력해주세요.");
 			return;
@@ -64,8 +64,17 @@ $(document).ready(function() {
 			alert("숙박일수를 입력해주세요.");
 			return;
 		}
+		
+		if (isNaN(day)) {	// 숫자가 아닌 경우
+			alert("숙박일은 숫자만 입력 가능합니다.");
+			return;
+		}
 		if (headcount == '') {
 			alert("숙박인원을 입력해주세요.");
+			return;
+		}
+		if (isNaN(headcount)) {	// 숫자가 아닌 경우
+			alert("숙박인원은 숫자만 입력 가능합니다.");
 			return;
 		}
 		if (phoneNumber == '') {
@@ -80,12 +89,14 @@ $(document).ready(function() {
 			, success: function(data) {
 				if (data.result) {
 					alert("이름 : " + name + "\n예약날짜 : " + date + "\n숙박일수 : " + day 
-							+ "\n숙박인원 : " + headcount + "\n전화번호 : " + phoneNumber + "\n예약이 접수되었습니다.");
+							+ "\n숙박인원 : " + headcount + "\n전화번호 : " + phoneNumber + "\n\n예약이 접수되었습니다.");
 					location.href = "/tongnamu/reservation_list";
+				} else {
+					alert("예약 처리에 실패했습니다.");
 				}
 			}
 			, error: function(e) {
-				alert("error");
+				alert("예약하는데 실패했습니다.");
 			}
 		});
 	});

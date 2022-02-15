@@ -1,6 +1,5 @@
 package com.quiz.tongnamu;
 
-import java.text.SimpleDateFormat;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
@@ -8,6 +7,7 @@ import java.util.Map;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
+import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
@@ -31,7 +31,7 @@ public class tongnamuController {
 	// 예약 확인 기능 - AJAX 호출
 	@ResponseBody
 	@PostMapping("/tongnamu/search_reservation")
-	public Map<String, Object> seafchReservation(
+	public Map<String, Object> searchReservation(
 			@RequestParam("name") String name,
 			@RequestParam("phoneNumber") String phoneNumber) {
 		
@@ -41,17 +41,21 @@ public class tongnamuController {
 		// return map
 		Map<String, Object> result = new HashMap<>();
 		
-		if (booking != null) {
-			result.put("name", booking.getName());
-			
-			SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd");
-			String date = sdf.format(booking.getDate());
-			
-			result.put("date", date);
-			result.put("day", booking.getDay());
-			result.put("headcount", booking.getHeadcount());
-			result.put("state", booking.getState());
-		} 
+		if (booking == null) {
+			// 실패시
+			// {"result":"fail"
+			//  "code":"500"}
+			result.put("result", "fail");
+			result.put("code", 500);
+		} else {
+			// 성공시
+			// {"result":"success"
+			//  "code":"1"
+			//  "booking":{"name":"장하나", "phoneNumber":"010-..."....}}
+			result.put("result", "success");
+			result.put("code", 1);
+			result.put("booking", booking);
+		}
 		
 		return result;
 	}
@@ -70,16 +74,19 @@ public class tongnamuController {
 	
 	// 예약 삭제 기능 - AJAX 호출
 	@ResponseBody
-	@PostMapping("/tongnamu/delete_booking")
-	public Map<String, Boolean> deleteBooking(
+	@DeleteMapping("/tongnamu/delete_booking")
+	public Map<String, String> deleteBooking(
 			@RequestParam("id") int id) {
 		
 		// DB delete
-		boolean deleteBooking = bookingBO.deleteBookingById(id);
+		int count = bookingBO.deleteBookingById(id);
 		
 		// map return
-		Map<String, Boolean> result = new HashMap<>();
-		result.put("result", deleteBooking);
+		Map<String, String> result = new HashMap<>();
+		result.put("result", "success");
+		if (count < 1) {
+			result.put("result", "fail");
+		}
 		
 		return result;
 	}
@@ -93,7 +100,7 @@ public class tongnamuController {
 	// 예약 추가 기능 - AJAX 호출
 	@ResponseBody
 	@PostMapping("/tongnamu/add_reservation")
-	public Map<String, Boolean> addReservation(
+	public Map<String, String> addReservation(
 			@RequestParam("name") String name,
 			@RequestParam("headcount") int headcount,
 			@RequestParam("day") int day,
@@ -101,11 +108,17 @@ public class tongnamuController {
 			@RequestParam("phoneNumber") String phoneNumber) {
 		
 		// DB insert
-		boolean addReservation = bookingBO.addBooking(name, headcount, day, date, phoneNumber);
+		int count = bookingBO.addBooking(name, headcount, day, date, phoneNumber);
 		
 		// map return
-		Map<String, Boolean> result = new HashMap<>();
-		result.put("result", addReservation);
+		Map<String, String> result = new HashMap<>();
+		result.put("result", "success");
+		result.put("code", "1");
+		
+		if (count < 1) {
+			result.put("result", "fail");
+			result.put("code", "500");
+		}
 		
 		return result;
 	}

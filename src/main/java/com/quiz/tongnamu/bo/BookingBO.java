@@ -18,15 +18,24 @@ public class BookingBO {
 		return bookingDAO.selectBookingList();
 	}
 	
-	public boolean deleteBookingById(int id) {
+	public int deleteBookingById(int id) {
 		return bookingDAO.deleteBookingById(id);
 	}
 	
-	public boolean addBooking(String name, int headcount, int day, String date, String phoneNumber) {
+	public int addBooking(String name, int headcount, int day, String date, String phoneNumber) {
 		return bookingDAO.insertBooking(name, headcount, day, date, phoneNumber); 
 	}
 	
 	public Booking getBookingByNameAndPhoneNumber(String name, String phoneNumber) {
-		return bookingDAO.selectBookingByNameAndPhoneNumber(name, phoneNumber);
+		List<Booking> bookingList = bookingDAO.selectBookingByNameAndPhoneNumber(name, phoneNumber);
+		Booking booking = null;
+		
+		// []
+		// List에서 마지막 1개만 보내기
+		if (bookingList.isEmpty() == false) {
+			// 데이터가 있을 때
+			booking = bookingList.get(bookingList.size() - 1);
+		}
+		return booking;
 	}
 }

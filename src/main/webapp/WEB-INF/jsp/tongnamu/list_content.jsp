@@ -24,13 +24,27 @@
 				<tr>
 					<td>${booking.name}</td>
 					<td>
-						<fmt:formatDate value="${booking.date}" pattern="yyyy년 M월 dd일"/>
+						<fmt:formatDate value="${booking.date}" pattern="yyyy년 M월 d일"/>
 					</td>
 					<td>${booking.day}</td>
 					<td>${booking.headcount}</td>
 					<td>${booking.phoneNumber}</td>
-					<td>${booking.state}</td>
-					<td><button type="button" value="${booking.id}" class="del-btn btn btn-danger">삭제</button></td>
+					<td>
+						<c:choose>
+							<c:when test="${booking.state == '대기중'}">
+								<span class="text-info">${booking.state}</span>
+							</c:when>
+							<c:when test="${booking.state == '확정'}">
+								<span class="text-success">${booking.state}</span>
+							</c:when>
+							<c:when test="${booking.state == '취소'}">
+								<span class="text-danger">${booking.state}</span>
+							</c:when>
+						</c:choose>
+					</td>
+					<td>
+						<button type="button" data-booking-id="${booking.id}" class="del-btn btn btn-danger">삭제</button>
+					</td>
 				</tr>
 				</c:forEach>
 			</tbody>
@@ -41,23 +55,23 @@
 <script>
 $(document).ready(function() {
 	$('.del-btn').on('click', function() {
-		let id = $(this).attr('value');
-		console.log(id);
+		let id = $(this).data('booking-id');
+		// console.log(id);
 		
 		$.ajax({
-			type: "POST"
+			type: "DELETE"
 			, url: "/tongnamu/delete_booking"
 			, data: {"id": id}
 			, success: function(data) {
-				if (data.result) {
-					// alert("성공");
+				if (data.result == "success") {
+					alert("예약이 취소되었습니다.");
 					location.reload();
 				}
 			}
 			, error: function(e) {
 				alert("error");
 			}
-		})	
+		}); 
 	});
 });
 </script>

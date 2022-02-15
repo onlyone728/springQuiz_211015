@@ -12,16 +12,16 @@ public interface BookingDAO {
 
 	public List<Booking> selectBookingList();
 	
-	public boolean deleteBookingById(int id);
+	public int deleteBookingById(int id);
 	
-	public boolean insertBooking(
+	public int insertBooking(
 			@Param("name") String name, 
 			@Param("headcount") int headcount, 
 			@Param("day") int day, 
 			@Param("date") String date, 
 			@Param("phoneNumber") String phoneNumber);
 	
-	public Booking selectBookingByNameAndPhoneNumber(
+	public List<Booking> selectBookingByNameAndPhoneNumber(
 			@Param("name") String name, 
 			@Param("phoneNumber") String phoneNumber);
 }
